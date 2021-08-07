@@ -1,6 +1,6 @@
 const express= require('express');
 const app= express();
-const studentRoute=require('./api/routes/developer');
+const developRoute=require('./api/routes/developer');
 const mongoose =require('mongoose');
 const bodyParser= require('body-parser');
 
@@ -14,6 +14,6 @@ mongoose.connection.on('connected',connected=>{
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-app.use('/developer',studentRoute);
+app.use('/developer',developRoute);
 
 module.exports= app;
