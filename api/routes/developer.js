@@ -2,8 +2,16 @@ const express= require('express');
 const router = express.Router();
 const developer=require('../model/devdata');
 const mongoose=require('mongoose')
+var req = require('request');
+
+
+   
+
 
 router.get('/',(req,res,next)=>{
+    res.set('Content-Type', 'application/json');
+    res.set('URL', 'https://localhost:3000/developer');
+    res.set('method', 'POST');
     
         developer.find().then(result=>{
             res.status(200).json({
@@ -20,7 +28,14 @@ router.get('/',(req,res,next)=>{
        
     
 })
-router.post('/',(req,res,next)=>{
+
+router.post('/', async(req,res,next)=>{
+
+    
+    res.set('Content-Type', 'application/json');
+    res.set('URL', 'https://localhost:3000/developer');
+    res.set('method', 'POST');
+
    const developerr=new developer({
        _id:new mongoose.Types.ObjectId,
        Name:req.body.Name,
@@ -28,7 +43,8 @@ router.post('/',(req,res,next)=>{
        Institution:req.body.Institution,
 
    })
-   developerr.save().then(result=>{
+   developerr.save().then(async result=>{
+  
        console.log(result);
        res.status(200).json({
            newdev: result
